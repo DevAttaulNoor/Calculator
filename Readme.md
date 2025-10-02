@@ -1,27 +1,36 @@
-# Introduction
-This is a simple calculator that can be used to calculate simple math related problems. It is created using HTML, CSS, and JavaScript.
+# Simple Calculator Web App
 
-Link to visit the website: https://devattaulnoor.github.io/Calculator/
+A clean, responsive calculator web application built using HTML, CSS, and JavaScript. Supports basic mathematical operations with a history display feature. Ideal for learning frontend development or quick calculations.
 
-# Getting Started
-To run the website locally on your machine, follow these steps.
-- Clone the repository or download the source code.
-- Open the project directory in your preferred code editor.
-- Ensure you have a modern web browser installed.
-- Open the index.html file in your browser.
+**Live Demo:** [Calculator Web App](https://devattaulnoor.github.io/Calculator/)
 
-# Features:
+## 🛠 Getting Started
+
+To run this project locally:
+
+1. Clone this repository or download the source code.
+2. Open the project directory in your preferred code editor.
+3. Ensure you have a modern web browser installed.
+4. Open `index.html` in your browser.
+
+## ✨ Features
+
+This project is a lightweight calculator that supports:
+
 - Addition, subtraction, multiplication, and division operations.
-- Responsive design.
+- Responsive design for desktop and mobile.
+- Displays calculation history.
 
-# Technologies
-The website is built using the following technologies.
-- HTML: Markup language for creating the structure and content of web pages.
-- CSS: Stylesheets for visually styling the web pages.
-- JavaScript: Programming language for implementing interactive features and functionality.
+## 🧰 Technologies Used
 
-# License
-This project is licensed under the DevAttaulNoor.
+- **HTML** – Structure and content of web pages.
+- **CSS** – Styling and responsive design.
+- **JS6** – Dynamic interactivity and functionality.
 
-# Contact
+## 📄 License
+
+This project is licensed under DevAttaulNoor License.
+
+## 📬 Contact
+
 If you have any questions or suggestions, feel free to contact the project maintainer at attaulnoor2001@gmail.com

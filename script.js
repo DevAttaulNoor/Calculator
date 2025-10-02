@@ -1,59 +1,91 @@
-let string = '';
+// ======= VARIABLES =======
+const inputElement = document.querySelector('input');
+const historyElement = document.getElementById("history");
+const buttons = document.querySelectorAll('button');
+
 let history = [];
-let resultDisplayed = false;
 let historyCounter = 1;
-let buttons = document.querySelectorAll('button');
+let calculationString = '';
+let resultDisplayed = false;
 
-Array.from(buttons).forEach((button) => {
-    button.addEventListener('click', (e) => {
-        try {
-            if (e.target.innerHTML == '=') {
-                if (string == '') {
-                    string = '';
-                } 
-                
-                else if (!resultDisplayed) {
-                    let result = eval(string);
-                    document.querySelector('input').value = result;
+// ======= HELPER FUNCTIONS =======
+const updateDisplay = () => {
+    inputElement.value = calculationString;
+    inputElement.scrollLeft = inputElement.scrollWidth;
+}
 
-                    let calculationHistoryEntry = `Calculation ${historyCounter}:\n${string} = ${result}`;
-                    history.push(calculationHistoryEntry);
+const addToHistory = (entry) => {
+    history.push(`Calculation ${historyCounter}:\n${entry}`);
+    historyCounter++;
+    historyElement.value = history.join("\n\n");
+}
 
-                    historyCounter++;
-                    document.getElementById("history").value = history.join("\n\n");
-                    resultDisplayed = true;
-                }
-            } 
-            
-            else if (e.target.innerHTML == 'AC') {
-                string = '';
-                document.querySelector('input').value = string;
+const calculate = () => {
+    if (!calculationString) return;
+
+    try {
+        const result = eval(calculationString);
+        inputElement.value = result;
+        addToHistory(`${calculationString} = ${result}`);
+        calculationString = result.toString();
+        resultDisplayed = true;
+    } catch {
+        inputElement.value = "Error";
+        calculationString = '';
+        resultDisplayed = false;
+    }
+}
+
+const handleInput = (value) => {
+    if (resultDisplayed && !['+', '-', '*', '/'].includes(value)) {
+        calculationString = '';
+        resultDisplayed = false;
+    }
+    calculationString += value;
+    updateDisplay();
+}
+
+// ======= BUTTON CLICK HANDLER =======
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        const value = button.innerHTML;
+
+        switch (value) {
+            case '=':
+                calculate();
+                break;
+            case 'AC':
+                calculationString = '';
                 resultDisplayed = false;
-            } 
-            
-            else if (e.target.innerHTML == 'C') {
-                string = string.toString().slice(0, -1);
-                document.querySelector('input').value = string;
-            } 
-            
-            else {
-                if (resultDisplayed) {
-                    string = '';
-                    resultDisplayed = false;
-                }
-            
-                string = string + e.target.innerHTML;
-                const inputElement = document.querySelector('input');
-                inputElement.value = string;
-                inputElement.scrollLeft = inputElement.scrollWidth;
-            }
-        }
-        
-        catch (error) {
-            if (e.target.innerHTML == '=') {
-                document.querySelector('input').value = "Error";
-                string = '';
-            }
+                updateDisplay();
+                break;
+            case 'C':
+                calculationString = calculationString.slice(0, -1);
+                updateDisplay();
+                break;
+            default:
+                handleInput(value);
         }
     });
+});
+
+// ======= KEYBOARD INPUT SUPPORT =======
+document.addEventListener('keydown', (e) => {
+    const allowedKeys = '0123456789+-*/.%';
+
+    if (allowedKeys.includes(e.key)) {
+        handleInput(e.key);
+    }
+    else if (e.key === 'Enter') {
+        calculate();
+    }
+    else if (e.key === 'Backspace') {
+        calculationString = calculationString.slice(0, -1);
+        updateDisplay();
+    }
+    else if (e.key === 'Escape') {
+        calculationString = '';
+        resultDisplayed = false;
+        updateDisplay();
+    }
 });
